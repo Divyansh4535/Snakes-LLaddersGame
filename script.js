@@ -1,3 +1,4 @@
+
 let Board = document.querySelector("#board");
 let Blue = document.querySelector("#blue");
 let Red = document.querySelector("#red");
@@ -17,15 +18,15 @@ const PlayerPosition = {
 
 function makeDiv() {
   let createBox = "";
-  for (let i = 9; i >= 0; i--) {
+  for (let i = 9; i >= 0; i--) {  //? create 10 rows 
     let start = i * 10 + 1;
     let end = (i + 1) * 10;
-    if (i % 2 === 0) {
-      for (let col = start; col <= end; col++) {
+    if (i % 2 === 0) { 
+      for (let col = start; col <= end; col++) { //? create 10 columns ascending order 
         createBox += ` <div id=${col} class="box items-center justify-center font-bold  text-xl flex   flex-wrap text-black h-full w-full relative "> </div> `;
       }
     } else {
-      for (let col = end; col >= start; col--) {
+      for (let col = end; col >= start; col--) { //? create 10 columns descending order
         createBox += ` <div id=${col} class="box items-center justify-center font-bold  text-xl relative flex   text-black  flex-wrap h-full w-full "> </div> `;
       }
     }
@@ -63,7 +64,6 @@ function makeDiv() {
     Board.innerHTML = createBox;
   }
 }
-
 function rollerNMove(player) {
 //! Generate number and change Dice Image  =====================>
   let random = Math.floor(Math.random() * 6 + 1);
@@ -102,24 +102,23 @@ function rollerNMove(player) {
       break;
   }
   //! ==================================== END =========>
- 
-    // console.log("player :->", player);
+
+    console.log("player :->", player);
   let currPosition = PlayerPosition[player];
-  // console.log("CurrPosition :->", currPosition);
+  console.log("CurrPosition :->", currPosition);
   let newPosition = currPosition + random;
-  // console.log("newPosition :->", newPosition);
+  console.log("newPosition :->", newPosition);
   if (newPosition <= 100) {
     PlayerPosition[player] = newPosition;
     PlayerPosition[player] = checkSnakeLadders(PlayerPosition[player]);
     movePlayer(player, PlayerPosition[player]);
   }
 }
-
 function movePlayer(Player, Position) {
   let playerDiv = document.querySelectorAll(`.player.${Player} `);
-  // console.log("player Move player :->", Player);
-  // console.log("player Move playerDiv :->", playerDiv);
-  // console.log("Position", Position);
+  console.log("player Move player :->", Player);
+  console.log("player Move playerDiv :->", playerDiv);
+  console.log("Position", Position);
   playerDiv.forEach((playerDiv) => {
     // console.log("playerDiv :->", playerDiv);
     playerDiv.remove();
@@ -135,7 +134,6 @@ function movePlayer(Player, Position) {
     box.appendChild(playerDiv);
   }
 }
-
 function checkSnakeLadders(Position) {
   const snakes = {
     99: 63,
@@ -176,13 +174,24 @@ function checkSnakeLadders(Position) {
 }
 
 DiceBtn.addEventListener("click", function () {
-  const player = ["red ", "blue ", "green", "yellow"];
+  const player = ["red", "blue", "green", "yellow"];
   const currPlayerIdx = player.indexOf(Tog.textContent);
-  // console.log('currPlayerIdx:-> ', currPlayerIdx)
+  console.log('player.indexOf() ', player.indexOf(), Tog ,Tog.textContent )
+  console.log('currPlayerIdx:-> ', currPlayerIdx )
   const nextPlayerIDx = (currPlayerIdx + 1) % player.length;
-  const nextPlayer = player[nextPlayerIDx];
+   console.log('nextPlayerIDx', nextPlayerIDx) 
+   const nextPlayer = player[nextPlayerIDx];
+   console.log('nextPlayer', nextPlayer) 
   Tog.textContent = nextPlayer;
   rollerNMove(nextPlayer);
 });
 
 makeDiv();
+
+
+
+// This is a basic implementation of a Snakes and Ladders game. The players roll the dice, move across the board, encounter snakes and ladders, and their positions are updated on the board. Sound effects play during dice rolls, and the turns alternate between players automatically.
+// Main Features:
+// Players can move across the grid based on dice rolls.
+// Snakes move players down, while ladders move them up.
+// The game switches turns between players, and all the movements are displayed on the board visually.
